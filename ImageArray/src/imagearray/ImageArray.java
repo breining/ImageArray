@@ -21,12 +21,12 @@ public class ImageArray {
 
     }
 
-    private double averageNeighbors(int rowIndex, int colIndex) {
-        double average = 0.0;
+    private int averageNeighbors(int rowIndex, int colIndex) {
+        int average = 0;
         int sum = 0;
         
-        for (int i = 1; i < row - 1; i++) {
-            for (int j = 1; j < col - 1; j++) {
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
                 sum = sum + original[rowIndex + i][colIndex + j];
                 
             }
@@ -38,32 +38,33 @@ public class ImageArray {
     private void blurImage() {
         for (int i = 1; i < row - 1; i++) {
             for (int j = 1; j < col - 1; j++) {
-                averageNeighbors(i, j);
+                blurred[i][j] = (int) averageNeighbors(i, j);
             }
         }
     }
 
     private String originalImage() {
         StringBuilder display = new StringBuilder("");
-        for (int i = 0; i < original.length; i++) {
-            for (int j = 0; j < original[i].length; j++) {
-                
-                display.append(original[i].toString());
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                display.append(Integer.toString(original[i][j]));
                 display.append("\t");
+                
             }
-            System.out.println();
+            display.append("\n");
         }
         return display.toString();
     }
 
     private String blurredImage() {
+        
         StringBuilder display = new StringBuilder("");
         for (int i = 0; i < blurred.length; i++) {
             for (int j = 0; j < blurred[i].length; j++) {
-                System.out.println();
-                display.append(blurred[i].toString());
+                display.append(Integer.toString(original[i][j]));
                 display.append("\t");
             }
+            display.append("\n");
         }
         return display.toString();
     }
